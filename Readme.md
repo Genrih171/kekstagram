@@ -1,7 +1,7 @@
 # Личный проект «{{projectTitle}}»
 
-* Студент: [{{userName}}]({{userProfile}}).
-* Наставник: `Неизвестно`.
+* Студент: [{{Savchenko Kirill}}]({{userProfile}}).
+* Наставник: `Vishniakova Alina`.
 
 ---
 
