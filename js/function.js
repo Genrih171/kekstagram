@@ -1,6 +1,6 @@
-let getStringLength = (string, maxLength) => string.length <= maxLength;
+const getStringLength = (string, maxLength) => string.length <= maxLength;
 
-let getIsPalindrom = function (string) {
+const getIsPalindrom = function (string) {
   let isPalindrom = true;
   string = string.toLowerCase();
   string = string.replaceAll(' ', '');
@@ -15,7 +15,7 @@ let getIsPalindrom = function (string) {
   return isPalindrom;
 };
 
-let getNumber = function (string) {
+const getNumber = function (string) {
   let currentNumber = '';
   string = string.replaceAll(' ', '');
 
@@ -29,7 +29,7 @@ let getNumber = function (string) {
   return (currentNumber !== '') ? +currentNumber : NaN;
 };
 
-let addStringStart = function (originalString, minLength, additionalCharacters) {
+const addStringStart = function (originalString, minLength, additionalCharacters) {
   if (originalString.length >= minLength) {
     return originalString;
   }
