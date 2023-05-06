@@ -48,3 +48,10 @@ const addStringStart = function (originalString, minLength, additionalCharacters
 
   return extraString + originalString;
 };
+
+export {
+  getStringLength,
+  getIsPalindrom,
+  getNumber,
+  addStringStart
+};
