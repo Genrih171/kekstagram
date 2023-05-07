@@ -29,29 +29,34 @@ const getNumber = function (string) {
   return (currentNumber !== '') ? +currentNumber : NaN;
 };
 
-const addStringStart = function (originalString, minLength, additionalCharacters) {
-  if (originalString.length >= minLength) {
+const addStringStart = function (originalString, maxLength, additionalCharacters) {
+  if (originalString.length >= maxLength) {
     return originalString;
   }
 
-  let extraString = '';
+  let newString = originalString;
 
-  while (extraString.length < minLength - originalString.length) {
-    for (let i = 0; i <= additionalCharacters.length - 1; i++) {
-      extraString += additionalCharacters[i];
+  while (newString.length + additionalCharacters.length <= maxLength) {
+    newString = additionalCharacters + newString;
+  }
 
-      if (extraString.length >= minLength - originalString.length) {
-        break;
-      }
+  if (newString.length === maxLength) {
+    return newString;
+  }
+
+  for (let i = -1; newString.length < maxLength; i--) {
+    if (newString.length + additionalCharacters.slice(0, i).length === maxLength) {
+      newString = additionalCharacters.slice(0, i) + newString;
+      break;
     }
   }
 
-  return extraString + originalString;
+  return newString;
 };
 
-export {
-  getStringLength,
-  getIsPalindrom,
-  getNumber,
-  addStringStart
-};
+// export {
+//   getStringLength,
+//   getIsPalindrom,
+//   getNumber,
+//   addStringStart
+// };
