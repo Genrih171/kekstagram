@@ -17,6 +17,7 @@ const getIsPalindrom = function (string) {
 
 const getNumber = function (string) {
   let currentNumber = '';
+  string += '';
   string = string.replaceAll(' ', '');
 
   for (let i = 0; i <= string.length - 1; i++) {
