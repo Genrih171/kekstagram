@@ -54,9 +54,9 @@ const addStringStart = function (originalString, maxLength, additionalCharacters
   return newString;
 };
 
-// export {
-//   getStringLength,
-//   getIsPalindrom,
-//   getNumber,
-//   addStringStart
-// };
+export {
+  getStringLength,
+  getIsPalindrom,
+  getNumber,
+  addStringStart
+};
