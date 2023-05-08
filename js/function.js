@@ -1,12 +1,15 @@
 const getStringLength = (string, maxLength) => string.length <= maxLength;
 
-const getIsPalindrom = function (string) {
+const getIsPalindrom = (string) => {
   let isPalindrom = true;
+
   string = string.toLowerCase();
   string = string.replaceAll(' ', '');
 
-  for (let i = 0; i <= string.length / 2; i++) {
-    if (string[i] !== string[string.length - (i + 1)]) {
+  const stringLength = string.length;
+
+  for (let i = 0; i <= stringLength / 2; i++) {
+    if (string[i] !== string[stringLength - (i + 1)]) {
       isPalindrom = false;
       break;
     }
@@ -15,12 +18,15 @@ const getIsPalindrom = function (string) {
   return isPalindrom;
 };
 
-const getNumber = function (string) {
+const getNumber = (string) => {
   let currentNumber = '';
+
   string += '';
   string = string.replaceAll(' ', '');
 
-  for (let i = 0; i <= string.length - 1; i++) {
+  const stringLength = string.length;
+
+  for (let i = 0; i < stringLength; i++) {
     if (isNaN(+string[i])) {
       continue;
     }
@@ -30,7 +36,7 @@ const getNumber = function (string) {
   return (currentNumber !== '') ? +currentNumber : NaN;
 };
 
-const addStringStart = function (originalString, maxLength, additionalCharacters) {
+const addStringStart = (originalString, maxLength, additionalCharacters) => {
   if (originalString.length >= maxLength) {
     return originalString;
   }
