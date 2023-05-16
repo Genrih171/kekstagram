@@ -57,9 +57,22 @@ const idComment = getValueCounter();
 const avatarNumber = createRandomIntegerFromRange(1, 6);
 
 const indexMessage = createRandomIntegerFromRange(0, COMMENTS.length - 1);
-const getCommentMessage = () => COMMENTS[indexMessage()];
 const numberOfMessage = createRandomIntegerFromRange(1, 100);
-const commentMessage = () => (numberOfMessage % 2 === 0) ? getCommentMessage() : `${getCommentMessage()} ${getCommentMessage()}`;
+const getCommentMessage = () => COMMENTS[indexMessage()];
+const getTwoCommentsMessage = () =>
+  function () {
+    const messagePart1 = getCommentMessage();
+    let messagePart2 = getCommentMessage();
+
+    while (messagePart1 === messagePart2) {
+      messagePart2 = getCommentMessage();
+    }
+
+    return `${messagePart1} ${messagePart2}`;
+  };
+const twoCommentsMessage = getTwoCommentsMessage();
+
+const commentMessage = () => (numberOfMessage % 2 === 0) ? getCommentMessage() : twoCommentsMessage();
 
 const indexName = createRandomIntegerFromRange(0, NAMES.length - 1);
 const commenter = () => NAMES[indexName()];
