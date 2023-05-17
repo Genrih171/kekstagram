@@ -29,13 +29,8 @@ const getValueCounter = () => {
   };
 };
 
-const createRandomIntegerFromRange = (min, max) => {
-  let currentValue = 0;
-
-  return function () {
-    currentValue = getRandomInteger(min, max);
-    return currentValue;
-  };
+const createRandomIntegerFromRange = (min, max) => function () {
+  return getRandomInteger(min, max);
 };
 
 const createRandomIntegerFromRangeNoRepeats = (min, max) => {
@@ -57,22 +52,22 @@ const idComment = getValueCounter();
 const avatarNumber = createRandomIntegerFromRange(1, 6);
 
 const indexMessage = createRandomIntegerFromRange(0, COMMENTS.length - 1);
-const numberOfMessage = createRandomIntegerFromRange(1, 100);
-const getCommentMessage = () => COMMENTS[indexMessage()];
-const getTwoCommentsMessage = () =>
-  function () {
-    const messagePart1 = getCommentMessage();
-    let messagePart2 = getCommentMessage();
+const numberOfMessage = createRandomIntegerFromRange(1, 2);
+const createCommentMessage = () => {
+  const previousMessage = [];
 
-    while (messagePart1 === messagePart2) {
-      messagePart2 = getCommentMessage();
+  for (let i = 0; i < numberOfMessage(); i++) {
+    let currentMesssage = COMMENTS[indexMessage()];
+    while (previousMessage.includes(currentMesssage)) {
+      currentMesssage = COMMENTS[indexMessage()];
     }
+    previousMessage.push(currentMesssage);
+  }
 
-    return `${messagePart1} ${messagePart2}`;
-  };
-const twoCommentsMessage = getTwoCommentsMessage();
+  return previousMessage.join(' ');
+};
 
-const commentMessage = () => (numberOfMessage % 2 === 0) ? getCommentMessage() : twoCommentsMessage();
+const commentMessage = () => createCommentMessage();
 
 const indexName = createRandomIntegerFromRange(0, NAMES.length - 1);
 const commenter = () => NAMES[indexName()];
@@ -81,7 +76,7 @@ const getRandomComment = () => {
   const randomComment = {
     id: idComment(),
     avatar: `img/avatar-${avatarNumber()}.svg`,
-    message: commentMessage(),
+    message: createCommentMessage(),
     name: commenter(),
   };
 
@@ -90,7 +85,7 @@ const getRandomComment = () => {
 
 const numberOfComments = createRandomIntegerFromRange(1, 5);
 
-const addsCommentsToPhoto = () => Array.from({length: numberOfComments()}, getRandomComment);
+const createCommentsToPhoto = () => Array.from({length: numberOfComments()}, getRandomComment);
 
 
 // Свойства случайно сгенерированного фото.
@@ -106,12 +101,12 @@ const getRandomPhoto = () => {
     url: `photos/${randomUrl()}.jpg`,
     description: `Описание#${randomNumberDescription()}`,
     likes: numberOfLikes(),
-    comments: addsCommentsToPhoto(),
+    comments: createCommentsToPhoto(),
   };
 
   return randomPhoto;
 };
 
-const getArrayOfPhoto = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
+const getPhoto = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
 
-export {getArrayOfPhoto};
+export {getPhoto as getArrayOfPhoto};
