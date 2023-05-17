@@ -56,18 +56,17 @@ const numberOfMessage = createRandomIntegerFromRange(1, 2);
 const createCommentMessage = () => {
   const previousMessage = [];
 
-  for (let i = 0; i < numberOfMessage(); i++) {
-    let currentMesssage = COMMENTS[indexMessage()];
-    while (previousMessage.includes(currentMesssage)) {
-      currentMesssage = COMMENTS[indexMessage()];
+  return function () {
+    let currentMessage = COMMENTS[indexMessage()];
+    while (previousMessage.includes(currentMessage)) {
+      currentMessage = COMMENTS[indexMessage()];
     }
-    previousMessage.push(currentMesssage);
-  }
-
-  return previousMessage.join(' ');
+    previousMessage.push(currentMessage);
+    return currentMessage;
+  };
 };
 
-const commentMessage = () => createCommentMessage();
+const commentMessage = () => Array.from({length: numberOfMessage()}, createCommentMessage()).join(' ');
 
 const indexName = createRandomIntegerFromRange(0, NAMES.length - 1);
 const commenter = () => NAMES[indexName()];
@@ -76,7 +75,7 @@ const getRandomComment = () => {
   const randomComment = {
     id: idComment(),
     avatar: `img/avatar-${avatarNumber()}.svg`,
-    message: createCommentMessage(),
+    message: commentMessage(),
     name: commenter(),
   };
 
@@ -109,4 +108,4 @@ const getRandomPhoto = () => {
 
 const getPhoto = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
 
-export {getPhoto as getArrayOfPhoto};
+export {getPhoto};
