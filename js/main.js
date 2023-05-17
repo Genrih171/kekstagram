@@ -48,33 +48,33 @@ const createRandomIntegerFromRangeNoRepeats = (min, max) => {
 
 // Свойства случайно сгенерированного комментария.
 
-const getIdComment = getValueCounter();
-const getAvatarNumber = createRandomIntegerFromRange(1, 6);
+const idComment = getValueCounter();
+const avatarNumber = createRandomIntegerFromRange(1, 6);
 
-const getIndexMessage = createRandomIntegerFromRange(0, COMMENTS.length - 1);
-const getNumberOfMessage = createRandomIntegerFromRange(1, 2);
+const indexMessage = createRandomIntegerFromRange(0, COMMENTS.length - 1);
+const numberOfMessage = createRandomIntegerFromRange(1, 2);
 const getExclusiveMessage = () => {
   const previousMessage = [];
 
   return function () {
-    let currentMessage = COMMENTS[getIndexMessage()];
+    let currentMessage = COMMENTS[indexMessage()];
     while (previousMessage.includes(currentMessage)) {
-      currentMessage = COMMENTS[getIndexMessage()];
+      currentMessage = COMMENTS[indexMessage()];
     }
     previousMessage.push(currentMessage);
     return currentMessage;
   };
 };
 
-const createCommentMessages = () => Array.from({length: getNumberOfMessage()}, getExclusiveMessage()).join(' ');
+const createCommentMessages = () => Array.from({length: numberOfMessage()}, getExclusiveMessage()).join(' ');
 
-const getIndexName = createRandomIntegerFromRange(0, NAMES.length - 1);
-const getCommenterName = () => NAMES[getIndexName()];
+const indexName = createRandomIntegerFromRange(0, NAMES.length - 1);
+const getCommenterName = () => NAMES[indexName()];
 
 const createRandomComment = () => {
   const randomComment = {
-    id: getIdComment(),
-    avatar: `img/avatar-${getAvatarNumber()}.svg`,
+    id: idComment(),
+    avatar: `img/avatar-${avatarNumber()}.svg`,
     message: createCommentMessages(),
     name: getCommenterName(),
   };
@@ -82,24 +82,24 @@ const createRandomComment = () => {
   return randomComment;
 };
 
-const getNumberOfComments = createRandomIntegerFromRange(1, 5);
+const numberOfComments = createRandomIntegerFromRange(1, 5);
 
-const createCommentsToPhoto = () => Array.from({length: getNumberOfComments()}, createRandomComment);
+const createCommentsToPhoto = () => Array.from({length: numberOfComments()}, createRandomComment);
 
 
 // Свойства случайно сгенерированного фото.
 
-const getIdPhoto = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
-const getUrlNumber = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
-const getNumberDescription = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
-const getNumberOfLikes = createRandomIntegerFromRange(15, 200);
+const idPhoto = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
+const urlNumber = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
+const numberDescription = createRandomIntegerFromRangeNoRepeats(1, MAX_ARRAY_LENGTH);
+const numberOfLikes = createRandomIntegerFromRange(15, 200);
 
 const getRandomPhoto = () => {
   const randomPhoto = {
-    id: getIdPhoto(),
-    url: `photos/${getUrlNumber()}.jpg`,
-    description: `Описание#${getNumberDescription()}`,
-    likes: getNumberOfLikes(),
+    id: idPhoto(),
+    url: `photos/${urlNumber()}.jpg`,
+    description: `Описание#${numberDescription()}`,
+    likes: numberOfLikes(),
     comments: createCommentsToPhoto(),
   };
 
