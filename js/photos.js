@@ -4,8 +4,8 @@ const templatePicture = document.querySelector('#picture').content;
 const pictureList = document.querySelector('.pictures');
 const generatedPhotos = createPhotos();
 
-const addPhotos = () => {
-  generatedPhotos.forEach((generatedPhoto) => {
+const addPhotos = (photos) => {
+  photos.forEach((generatedPhoto) => {
     const photo = templatePicture.cloneNode(true);
 
     photo.querySelector('.picture__img').src = generatedPhoto.url;
