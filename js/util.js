@@ -1,4 +1,3 @@
-// Функции значений из диапазона и счетчики.
 
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
@@ -29,4 +28,6 @@ const createRandomIntegerFromRangeNoRepeats = (min, max) => {
   };
 };
 
-export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats, isEscapeKey};

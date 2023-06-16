@@ -49,7 +49,7 @@ const createRandomComment = () => {
   return randomComment;
 };
 
-const getNumberOfComments = () => getRandomInteger(1, 5);
+const getNumberOfComments = () => getRandomInteger(1, 25);
 
 const createCommentsToPhoto = () => Array.from({length: getNumberOfComments()}, createRandomComment);
 
@@ -75,4 +75,6 @@ const getRandomPhoto = () => {
 
 const createPhotos = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
 
-export {createPhotos};
+const newPhotos = createPhotos();
+
+export {newPhotos};
