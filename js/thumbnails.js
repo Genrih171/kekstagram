@@ -1,4 +1,4 @@
-import {newPhotos} from './data.js';
+import {dataPhotos} from './data.js';
 
 const templatePicture = document.querySelector('#picture').content;
 const pictureList = document.querySelector('.pictures');
@@ -18,4 +18,4 @@ const addThumbnails = (generatedPhotos) => {
   );
 };
 
-addThumbnails(newPhotos);
+addThumbnails(dataPhotos);

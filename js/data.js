@@ -73,8 +73,8 @@ const getRandomPhoto = () => {
   return randomPhoto;
 };
 
-const createPhotos = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
+const createDataPhotos = () => Array.from({length: MAX_ARRAY_LENGTH}, getRandomPhoto);
 
-const newPhotos = createPhotos();
+const dataPhotos = createDataPhotos();
 
-export {newPhotos};
+export {dataPhotos};
