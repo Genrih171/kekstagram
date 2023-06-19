@@ -17,7 +17,7 @@ const uploadedComments = bigPicture.querySelector('.uploaded-comments');
 const onDocumentKeydown = (evt) => {
   evt.preventDefault();
   if (isEscapeKey) {
-    closeBigPicture();
+    onCloseBigPicture();
   }
 };
 
@@ -64,7 +64,7 @@ function openBigPicture (evt) {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closeBigPicture () {
+function onCloseBigPicture () {
   bigPicture.classList.add('hidden');
 
   document.body.classList.remove('modal-open');
@@ -81,4 +81,4 @@ pictureList.addEventListener('click', (evt) => {
   }
 });
 
-buttonClosePicture.addEventListener('click', closeBigPicture);
+buttonClosePicture.addEventListener('click', onCloseBigPicture);
