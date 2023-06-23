@@ -178,5 +178,3 @@ effectsList.addEventListener('click', (evt) => {
     sliderElement.noUiSlider.updateOptions(getFilterForSlider(effect));
   }
 });
-
-// imgUploadOverlay.classList.remove('hidden');
