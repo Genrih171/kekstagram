@@ -1,82 +1,80 @@
-const sliderFilters = {
-  'effects__preview--chrome': {
-    range: {
-      min: 0,
-      max: 1
-    },
-    start: 1,
-    step: 0.1
-  },
-  'effects__preview--sepia': {
-    range: {
-      min: 0,
-      max: 1
-    },
-    start: 1,
-    step: 0.1
-  },
-  'effects__preview--marvin': {
-    range: {
-      min: 0,
-      max: 100
-    },
-    start: 100,
-    step: 1
-  },
-  'effects__preview--phobos': {
-    range: {
-      min: 0,
-      max: 3
-    },
-    start: 3,
-    step: 0.1
-  },
-  'effects__preview--heat': {
-    range: {
-      min: 1,
-      max: 3
-    },
-    start: 3,
-    step: 0.1
-  },
-};
-
-const getFilterForSlider = (nameFilter) => sliderFilters[nameFilter];
-
-const getFilterForImage = (image, value) => {
+const getFilter = (image, value) => {
   if (image.matches('.effects__preview--chrome')) {
-    return `grayscale(${value})`;
+    return {
+      class: 'effects__preview--chrome',
+      css: `grayscale(${value})`,
+      'slider options': {
+        range: {
+          min: 0,
+          max: 1
+        },
+        start: 1,
+        step: 0.1
+      },
+    };
   }
   if (image.matches('.effects__preview--sepia')) {
-    return `sepia(${value})`;
+    return {
+      class: 'effects__preview--sepia',
+      css: `sepia(${value})`,
+      'slider options': {
+        range: {
+          min: 0,
+          max: 1
+        },
+        start: 1,
+        step: 0.1
+      },
+    };
   }
   if (image.matches('.effects__preview--marvin')) {
-    return `invert(${value}%)`;
+    return {
+      class: 'effects__preview--marvin',
+      css: `invert(${value}%)`,
+      'slider options': {
+        range: {
+          min: 0,
+          max: 100
+        },
+        start: 100,
+        step: 1
+      },
+    };
   }
   if (image.matches('.effects__preview--phobos')) {
-    return `blur(${value}px)`;
+    return {
+      class: 'effects__preview--phobos',
+      css: `blur(${value}px)`,
+      'slider options': {
+        range: {
+          min: 0,
+          max: 3
+        },
+        start: 3,
+        step: 0.1
+      },
+    };
   }
   if (image.matches('.effects__preview--heat')) {
-    return `brightness(${value})`;
+    return {
+      class: 'effects__preview--heat',
+      css: `brightness(${value})`,
+      'slider options': {
+        range: {
+          min: 1,
+          max: 3
+        },
+        start: 3,
+        step: 0.1
+      },
+    };
+  } else {
+    return {
+      class: '',
+      css: '',
+      'slider options': {},
+    };
   }
 };
 
-const getFilterPreview = (image) => {
-  if (image.matches('.effects__preview--chrome')) {
-    return 'effects__preview--chrome';
-  }
-  if (image.matches('.effects__preview--sepia')) {
-    return 'effects__preview--sepia';
-  }
-  if (image.matches('.effects__preview--marvin')) {
-    return 'effects__preview--marvin';
-  }
-  if (image.matches('.effects__preview--phobos')) {
-    return 'effects__preview--phobos';
-  }
-  if (image.matches('.effects__preview--heat')) {
-    return 'effects__preview--heat';
-  }
-};
-
-export {getFilterForSlider, getFilterForImage, getFilterPreview};
+export { getFilter };

@@ -1,9 +1,9 @@
-import { getFilterForSlider, getFilterForImage, getFilterPreview } from './filters.js';
+import { getFilter } from './filters.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 const imgPreview = imgUploadForm.querySelector('.img-upload__preview img');
 
-//  Мастштаб
+//  -----------------Мастштаб-----------------
 
 const scaleControl = imgUploadForm.querySelector('.scale__control--value');
 const buttonScaleSmaller = imgUploadForm.querySelector('.scale__control--smaller');
@@ -29,8 +29,7 @@ buttonScaleBigger.addEventListener('click', () => {
   }
 });
 
-// Редактирование изображения
-//  Фильтры
+//  -----------------Фильтры-----------------
 
 const sliderContainer = imgUploadForm.querySelector('.img-upload__effect-level');
 const sliderElement = sliderContainer.querySelector('.effect-level__slider');
@@ -59,7 +58,7 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectValue.value = sliderValue;
-  imgPreview.style.filter = getFilterForImage(imgPreview, sliderValue);
+  imgPreview.style.filter = getFilter(imgPreview, sliderValue).css;
 });
 
 const switchFilterToOriginal = () => {
@@ -70,17 +69,17 @@ const switchFilterToOriginal = () => {
 };
 
 const switchFilter = (evt) => {
-  const effect = getFilterPreview(
+  const effect = getFilter(
     evt.target
       .closest('.effects__label')
       .querySelector('.effects__preview')
   );
   imgPreview.className = '';
-  imgPreview.classList.add(effect);
+  imgPreview.classList.add(effect.class);
   sliderContainer.classList.remove('hidden');
   sliderElement.classList.remove('hidden');
 
-  sliderElement.noUiSlider.updateOptions(getFilterForSlider(effect));
+  sliderElement.noUiSlider.updateOptions(effect['slider options']);
 };
 
 effectsList.addEventListener('click', (evt) => {
