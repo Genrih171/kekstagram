@@ -15,8 +15,8 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const uploadedComments = bigPicture.querySelector('.uploaded-comments');
 
 const onDocumentKeydown = (evt) => {
-  evt.preventDefault();
-  if (isEscapeKey) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
     onCloseBigPicture();
   }
 };
@@ -44,7 +44,7 @@ const addComment = (dataComments) => {
 let onCommentsLoaderClick;
 
 function openBigPicture (evt) {
-  const photoData = dataPhotos.find((photo) => +evt.target.id === photo.id);
+  const photoData = dataPhotos.find((photo) => +evt.target.dataset.thumbnailId === photo.id);
   const {url, likes, comments, description} = photoData;
 
   bigPictureImg.src = url;
@@ -75,8 +75,8 @@ function onCloseBigPicture () {
 }
 
 pictureList.addEventListener('click', (evt) => {
-  evt.preventDefault();
   if (evt.target.closest('.picture')) {
+    evt.preventDefault();
     openBigPicture(evt);
   }
 });
