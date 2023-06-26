@@ -30,4 +30,6 @@ const createRandomIntegerFromRangeNoRepeats = (min, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats, isEscapeKey};
+const onStopPropagation = (evt) => evt.stopPropagation();
+
+export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats, isEscapeKey, onStopPropagation};

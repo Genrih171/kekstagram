@@ -61,4 +61,22 @@ const getFilterForImage = (image, value) => {
   }
 };
 
-export {getFilterForSlider, getFilterForImage};
+const getFilterPreview = (image) => {
+  if (image.matches('.effects__preview--chrome')) {
+    return 'effects__preview--chrome';
+  }
+  if (image.matches('.effects__preview--sepia')) {
+    return 'effects__preview--sepia';
+  }
+  if (image.matches('.effects__preview--marvin')) {
+    return 'effects__preview--marvin';
+  }
+  if (image.matches('.effects__preview--phobos')) {
+    return 'effects__preview--phobos';
+  }
+  if (image.matches('.effects__preview--heat')) {
+    return 'effects__preview--heat';
+  }
+};
+
+export {getFilterForSlider, getFilterForImage, getFilterPreview};
