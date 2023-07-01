@@ -14,6 +14,7 @@ const description = imgUploadForm.querySelector('.text__description');
 
 const uploadInput = imgUploadForm.querySelector('#upload-file');
 const buttonCloseOverlay = imgUploadForm.querySelector('#upload-cancel');
+const submitButton = imgUploadForm.querySelector('#upload-submit');
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && !document.querySelector('.error')) {
@@ -88,11 +89,13 @@ imgUploadForm.addEventListener('submit', (evt) => {
 
   const isValid = pristine.validate();
   if (isValid) {
+    submitButton.disabled = true;
     const formData = new FormData(evt.target);
 
     sendPhoto(formData)
       .then(() => {
         onCloseOverlay();
+        submitButton.disabled = false;
         showSuccess();
       })
       .catch(() => showError());
