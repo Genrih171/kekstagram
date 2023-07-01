@@ -1,5 +1,4 @@
 import {isEscapeKey} from './util.js';
-import {dataPhotos} from './data.js';
 
 const pictureList = document.querySelector('.pictures');
 
@@ -39,11 +38,14 @@ const addComment = (dataComments) => {
   }
 
   uploadedComments.textContent = photoComments.children.length;
+  if (photoComments.children.length === dataComments.length) {
+    commentsLoader.classList.add('hidden');
+  }
 };
 
 let onCommentsLoaderClick;
 
-function openBigPicture (evt) {
+function openBigPicture (evt, dataPhotos) {
   const photoData = dataPhotos.find((photo) => +evt.target.dataset.thumbnailId === photo.id);
   const {url, likes, comments, description} = photoData;
 
@@ -69,16 +71,21 @@ function onCloseBigPicture () {
 
   document.body.classList.remove('modal-open');
 
+  commentsLoader.classList.remove('hidden');
   commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   onCommentsLoaderClick = null;
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-pictureList.addEventListener('click', (evt) => {
-  if (evt.target.closest('.picture')) {
-    evt.preventDefault();
-    openBigPicture(evt);
-  }
-});
+const renderGallery = (dataPhotos) => {
+  pictureList.addEventListener('click', (evt) => {
+    if (evt.target.closest('.picture')) {
+      evt.preventDefault();
+      openBigPicture(evt, dataPhotos);
+    }
+  });
 
-buttonClosePicture.addEventListener('click', onCloseBigPicture);
+  buttonClosePicture.addEventListener('click', onCloseBigPicture);
+};
+
+export { renderGallery };

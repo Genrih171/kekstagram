@@ -1,21 +1,19 @@
-import {dataPhotos} from './data.js';
-
 const templatePicture = document.querySelector('#picture').content;
 const pictureList = document.querySelector('.pictures');
 
-const addThumbnails = (generatedPhotos) => {
-  generatedPhotos.forEach((generatedPhoto) => {
-    const photo = templatePicture.cloneNode(true);
+const renderThumbnails = (photos) => {
+  photos.forEach((photo) => {
+    const thumbnail = templatePicture.cloneNode(true);
 
-    photo.querySelector('.picture__img').dataset.thumbnailId = generatedPhoto.id;
-    photo.querySelector('.picture__img').src = generatedPhoto.url;
-    photo.querySelector('.picture__img').alt = generatedPhoto.description;
-    photo.querySelector('.picture__likes').textContent = generatedPhoto.likes;
-    photo.querySelector('.picture__comments').textContent = generatedPhoto.comments.length;
+    thumbnail.querySelector('.picture__img').dataset.thumbnailId = photo.id;
+    thumbnail.querySelector('.picture__img').src = photo.url;
+    thumbnail.querySelector('.picture__img').alt = photo.description;
+    thumbnail.querySelector('.picture__likes').textContent = photo.likes;
+    thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
 
-    pictureList.append(photo);
+    pictureList.append(thumbnail);
   }
   );
 };
 
-addThumbnails(dataPhotos);
+export { renderThumbnails };
