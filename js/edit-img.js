@@ -77,6 +77,7 @@ const switchFilter = (evt) => {
 const switchFilterToOriginal = () => {
   imgPreview.className = '';
   imgPreview.style.filter = '';
+  sliderElement.noUiSlider.set(0);
   sliderContainer.classList.add('hidden');
 };
 

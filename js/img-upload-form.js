@@ -1,5 +1,7 @@
-import {isEscapeKey, onStopPropagation} from './util.js';
+import { isEscapeKey, onStopPropagation } from './util.js';
 import { switchFilterToOriginal } from './edit-img.js';
+import { sendPhoto } from './api.js';
+import { showSuccess, showError } from './delivery-reports.js';
 
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
@@ -14,7 +16,7 @@ const uploadInput = imgUploadForm.querySelector('#upload-file');
 const buttonCloseOverlay = imgUploadForm.querySelector('#upload-cancel');
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !document.querySelector('.error')) {
     evt.preventDefault();
     onCloseOverlay();
   }
@@ -83,7 +85,18 @@ pristine.addValidator(description, validateDescription, 'Максимальна�
 
 imgUploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  pristine.validate();
+
+  const isValid = pristine.validate();
+  if (isValid) {
+    const formData = new FormData(evt.target);
+
+    sendPhoto(formData)
+      .then(() => {
+        onCloseOverlay();
+        showSuccess();
+      })
+      .catch(() => showError());
+  }
 });
 
 hashtags.addEventListener('keydown', onStopPropagation);
