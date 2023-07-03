@@ -96,7 +96,10 @@ imgUploadForm.addEventListener('submit', (evt) => {
         submitButton.disabled = false;
         showSuccess();
       })
-      .catch(() => showError());
+      .catch(() => {
+        showError();
+        submitButton.disabled = false;
+      });
   }
 });
 
