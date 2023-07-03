@@ -90,9 +90,7 @@ imgUploadForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     submitButton.disabled = true;
-    const formData = new FormData(evt.target);
-
-    sendPhoto(formData)
+    sendPhoto(new FormData(evt.target))
       .then(() => {
         onCloseOverlay();
         submitButton.disabled = false;
