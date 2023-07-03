@@ -5,19 +5,21 @@ const showModal = (result) => {
 
   const report = document.querySelector(`.${result}`);
 
-  const onDocumentKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      if (report) {
-        report.remove();
-      }
-      document.removeEventListener('keydown', onDocumentKeydown);
-    }
+  const removeReport = () => {
+    report.remove();
+    document.removeEventListener('keydown', onDocumentKeydown);
   };
 
-  report.querySelector(`.${result}__button`).addEventListener('click', () => report.remove());
+  function onDocumentKeydown (evt) {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      removeReport();
+    }
+  }
+
   report.querySelector(`.${result}__inner`).addEventListener('click', onStopPropagation);
-  report.addEventListener('click', () => report.remove());
+  report.querySelector(`.${result}__button`).addEventListener('click', () => removeReport());
+  report.addEventListener('click', () => removeReport());
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
