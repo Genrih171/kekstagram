@@ -36,6 +36,8 @@ const sliderElement = sliderContainer.querySelector('.effect-level__slider');
 const effectValue = sliderContainer.querySelector('.effect-level__value');
 const effectsList = imgUploadForm.querySelector('.effects__list');
 
+const originalFilter = imgUploadForm.querySelector('#effect-none');
+
 let filter = getFilter(imgUploadForm.querySelector('.effects__preview--none'));
 
 noUiSlider.create(sliderElement, {
@@ -75,6 +77,7 @@ const switchFilter = (evt) => {
 };
 
 const switchFilterToOriginal = () => {
+  originalFilter.checked = true;
   imgPreview.className = '';
   imgPreview.style.filter = '';
   sliderElement.noUiSlider.set(0);

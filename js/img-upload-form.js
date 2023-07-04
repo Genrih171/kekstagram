@@ -93,11 +93,12 @@ imgUploadForm.addEventListener('submit', (evt) => {
     sendPhoto(new FormData(evt.target))
       .then(() => {
         onCloseOverlay();
-        submitButton.disabled = false;
         showSuccess();
       })
       .catch(() => {
         showError();
+      })
+      .finally(() => {
         submitButton.disabled = false;
       });
   }

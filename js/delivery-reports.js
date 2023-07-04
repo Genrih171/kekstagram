@@ -18,8 +18,8 @@ const showModal = (result) => {
   }
 
   report.querySelector(`.${result}__inner`).addEventListener('click', onStopPropagation);
-  report.querySelector(`.${result}__button`).addEventListener('click', () => removeReport());
-  report.addEventListener('click', () => removeReport());
+  report.querySelector(`.${result}__button`).addEventListener('click', removeReport);
+  report.addEventListener('click', removeReport);
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
