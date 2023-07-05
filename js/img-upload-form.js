@@ -1,5 +1,5 @@
 import { isEscapeKey, onStopPropagation } from './util.js';
-import { switchFilterToOriginal } from './edit-img.js';
+import { switchEffectToOriginal } from './edit-img.js';
 import { sendPhoto } from './api.js';
 import { showSuccess, showError } from './delivery-reports.js';
 
@@ -25,7 +25,7 @@ const onDocumentKeydown = (evt) => {
 
 uploadInput.addEventListener('change', () => {
   imgPreview.style.transform = 'scale(1)';
-  switchFilterToOriginal();
+  switchEffectToOriginal();
 
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');

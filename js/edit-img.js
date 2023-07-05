@@ -1,4 +1,4 @@
-import { getFilter } from './filters.js';
+import { getEffect } from './filters.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 const imgPreview = imgUploadForm.querySelector('.img-upload__preview img');
@@ -36,9 +36,9 @@ const sliderElement = sliderContainer.querySelector('.effect-level__slider');
 const effectValue = sliderContainer.querySelector('.effect-level__value');
 const effectsList = imgUploadForm.querySelector('.effects__list');
 
-const originalFilter = imgUploadForm.querySelector('#effect-none');
+const originalEffect = imgUploadForm.querySelector('#effect-none');
 
-let filter = getFilter(imgUploadForm.querySelector('.effects__preview--none'));
+let effect = getEffect(imgUploadForm.querySelector('.effects__preview--none'));
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -62,22 +62,22 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectValue.value = sliderValue;
-  imgPreview.style.filter = `${filter.css}(${sliderValue}${filter.units})`;
+  imgPreview.style.filter = `${effect.css}(${sliderValue}${effect.units})`;
 });
 
-const switchFilter = (evt) => {
-  filter = getFilter(
+const switchEffect = (evt) => {
+  effect = getEffect(
     evt.target
       .closest('.effects__label')
       .querySelector('.effects__preview')
   );
-  imgPreview.className = filter.class;
+  imgPreview.className = effect.class;
   sliderContainer.classList.remove('hidden');
-  sliderElement.noUiSlider.updateOptions(filter['slider options']);
+  sliderElement.noUiSlider.updateOptions(effect['slider options']);
 };
 
-const switchFilterToOriginal = () => {
-  originalFilter.checked = true;
+const switchEffectToOriginal = () => {
+  originalEffect.checked = true;
   imgPreview.className = '';
   imgPreview.style.filter = '';
   sliderElement.noUiSlider.set(0);
@@ -86,12 +86,12 @@ const switchFilterToOriginal = () => {
 
 effectsList.addEventListener('click', (evt) => {
   if (evt.target.closest('[for="effect-none"]')) {
-    switchFilterToOriginal();
+    switchEffectToOriginal();
     return;
   }
   if (evt.target.closest('.effects__label')) {
-    switchFilter(evt);
+    switchEffect(evt);
   }
 });
 
-export {switchFilterToOriginal};
+export {switchEffectToOriginal};

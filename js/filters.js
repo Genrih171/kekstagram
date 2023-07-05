@@ -1,4 +1,4 @@
-const filters = [{
+const effects = [{
   class: 'effects__preview--none',
   css: '',
   units: '',
@@ -70,6 +70,6 @@ const filters = [{
   },
 },];
 
-const getFilter = (thumnailPreview) => filters.find((filter) => thumnailPreview.matches(`.${filter.class}`));
+const getEffect = (thumnailPreview) => effects.find((effect) => thumnailPreview.matches(`.${effect.class}`));
 
-export { getFilter };
+export { getEffect };
