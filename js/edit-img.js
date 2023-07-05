@@ -36,6 +36,10 @@ const sliderElement = sliderContainer.querySelector('.effect-level__slider');
 const effectValue = sliderContainer.querySelector('.effect-level__value');
 const effectsList = imgUploadForm.querySelector('.effects__list');
 
+const originalFilter = imgUploadForm.querySelector('#effect-none');
+
+let filter = getFilter(imgUploadForm.querySelector('.effects__preview--none'));
+
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -58,28 +62,26 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   const sliderValue = sliderElement.noUiSlider.get();
   effectValue.value = sliderValue;
-  imgPreview.style.filter = getFilter(imgPreview, sliderValue).css;
+  imgPreview.style.filter = `${filter.css}(${sliderValue}${filter.units})`;
 });
 
-const switchFilterToOriginal = () => {
-  imgPreview.className = '';
-  imgPreview.style.filter = '';
-  sliderContainer.classList.add('hidden');
-  sliderElement.classList.add('hidden');
-};
-
 const switchFilter = (evt) => {
-  const effect = getFilter(
+  filter = getFilter(
     evt.target
       .closest('.effects__label')
       .querySelector('.effects__preview')
   );
-  imgPreview.className = '';
-  imgPreview.classList.add(effect.class);
+  imgPreview.className = filter.class;
   sliderContainer.classList.remove('hidden');
-  sliderElement.classList.remove('hidden');
+  sliderElement.noUiSlider.updateOptions(filter['slider options']);
+};
 
-  sliderElement.noUiSlider.updateOptions(effect['slider options']);
+const switchFilterToOriginal = () => {
+  originalFilter.checked = true;
+  imgPreview.className = '';
+  imgPreview.style.filter = '';
+  sliderElement.noUiSlider.set(0);
+  sliderContainer.classList.add('hidden');
 };
 
 effectsList.addEventListener('click', (evt) => {
