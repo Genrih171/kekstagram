@@ -12,9 +12,7 @@ filters.classList.remove('img-filters--inactive');
 
 const removeThumbnails = () => {
   const thumbnails = document.querySelectorAll('.picture');
-  for (const thumbnail of thumbnails) {
-    thumbnail.remove();
-  }
+  thumbnails.forEach((el) => el.remove());
 };
 
 const changeButtonClass = (button) => {
