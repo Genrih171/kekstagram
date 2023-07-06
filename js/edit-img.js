@@ -1,4 +1,4 @@
-import { getEffect } from './filters.js';
+import { getEffect } from './effects.js';
 
 const imgUploadForm = document.querySelector('#upload-select-image');
 const imgPreview = imgUploadForm.querySelector('.img-upload__preview img');

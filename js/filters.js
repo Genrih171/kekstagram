@@ -1,75 +1,57 @@
-const effects = [{
-  class: 'effects__preview--none',
-  css: '',
-  units: '',
-  'slider options': {},
-},
-{
-  class: 'effects__preview--chrome',
-  css: 'grayscale',
-  units: '',
-  'slider options': {
-    range: {
-      min: 0,
-      max: 1
-    },
-    start: 1,
-    step: 0.1
-  },
-},
-{
-  class: 'effects__preview--sepia',
-  css: 'sepia',
-  units: '',
-  'slider options': {
-    range: {
-      min: 0,
-      max: 1
-    },
-    start: 1,
-    step: 0.1
-  },
-},
-{
-  class: 'effects__preview--marvin',
-  css: 'invert',
-  units: '%',
-  'slider options': {
-    range: {
-      min: 0,
-      max: 100
-    },
-    start: 100,
-    step: 1
-  },
-},
-{
-  class: 'effects__preview--phobos',
-  css: 'blur',
-  units: 'px',
-  'slider options': {
-    range: {
-      min: 0,
-      max: 3
-    },
-    start: 3,
-    step: 0.1
-  },
-},
-{
-  class: 'effects__preview--heat',
-  css: 'brightness',
-  units: '',
-  'slider options': {
-    range: {
-      min: 1,
-      max: 3
-    },
-    start: 3,
-    step: 0.1
-  },
-},];
+import { createRandomIntegerFromRangeNoRepeats, debounce } from './util.js';
 
-const getEffect = (thumnailPreview) => effects.find((effect) => thumnailPreview.matches(`.${effect.class}`));
+const AMOUNT_RANDOM_PHOTOS = 10;
 
-export { getEffect };
+const filters = document.querySelector('.img-filters');
+const filterButtons = filters.querySelectorAll('.img-filters__button');
+const buttonRandomFilter = filters.querySelector('#filter-random');
+const buttonDefaultFilter = filters.querySelector('#filter-default');
+const buttonRaitingFilter = filters.querySelector('#filter-discussed');
+
+filters.classList.remove('img-filters--inactive');
+
+const removeThumbnails = () => {
+  const thumbnails = document.querySelectorAll('.picture');
+  for (const thumbnail of thumbnails) {
+    thumbnail.remove();
+  }
+};
+
+const changeButtonClass = (button) => {
+  filterButtons.forEach((el) => el.classList.remove('img-filters__button--active'));
+  button.classList.add('img-filters__button--active');
+};
+
+const addFilters = (photos, cb) => {
+  const toggleDefaultFilter = () => {
+    changeButtonClass(buttonDefaultFilter);
+    removeThumbnails();
+    cb(photos);
+  };
+
+  const toggleRandomFilter = () => {
+    changeButtonClass(buttonRandomFilter);
+    removeThumbnails();
+    const randomOrder = [];
+    const randomPhotoNumber = createRandomIntegerFromRangeNoRepeats(0, photos.length - 1);
+    for (let i = 0; i < AMOUNT_RANDOM_PHOTOS; i++) {
+      randomOrder.push(photos[randomPhotoNumber()]);
+    }
+    cb(randomOrder);
+  };
+
+  const toggleRaitingFilter = () => {
+    changeButtonClass(buttonRaitingFilter);
+    removeThumbnails();
+    const sortedPhotos = photos.slice();
+    sortedPhotos.sort((a, b) => b.likes - a.likes);
+    cb(sortedPhotos);
+  };
+
+  buttonDefaultFilter.addEventListener('click', debounce(toggleDefaultFilter));
+  buttonRandomFilter.addEventListener('click', debounce(toggleRandomFilter));
+  buttonRaitingFilter.addEventListener('click', debounce(toggleRaitingFilter));
+};
+
+
+export {addFilters};
