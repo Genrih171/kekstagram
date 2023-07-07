@@ -1,4 +1,4 @@
-import { createRandomIntegerFromRangeNoRepeats } from './util.js';
+import { createRandomIntegerFromRangeNoRepeats, debounce } from './util.js';
 
 const AMOUNT_RANDOM_PHOTOS = 10;
 
@@ -36,7 +36,7 @@ const addFilters = (photos, cb) => {
   const toggleRaitingFilter = () => {
     removeThumbnails();
     const sortedPhotos = photos.slice();
-    sortedPhotos.sort((a, b) => b.likes - a.likes);
+    sortedPhotos.sort((a, b) => b.comments.length - a.comments.length);
     cb(sortedPhotos);
   };
 
@@ -56,16 +56,20 @@ const addFilters = (photos, cb) => {
     }
   };
 
-  const onFilterButtons = (callback, timeoutDelay = 500) => {
-    let timeoutId;
-    return (evt) => {
+  const debounceFilter = debounce(toogleFilter);
+
+  const onFilterButtons = (evt) => {
+    if (evt.target.closest('.img-filters__button--active')) {
+      return;
+    }
+
+    if (evt.target.closest('.img-filters__button')) {
       changeButtonClass(evt);
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => callback(evt), timeoutDelay);
-    };
+      debounceFilter(evt);
+    }
   };
 
-  filters.addEventListener('click', onFilterButtons(toogleFilter));
+  filters.addEventListener('click', onFilterButtons);
 };
 
 
