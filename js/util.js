@@ -59,4 +59,12 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats, isEscapeKey, onStopPropagation, showAlert};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {getRandomInteger, getValueCounter, createRandomIntegerFromRangeNoRepeats, isEscapeKey, onStopPropagation, showAlert, debounce};

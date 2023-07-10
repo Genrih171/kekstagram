@@ -1,8 +1,9 @@
 import { isEscapeKey, onStopPropagation } from './util.js';
-import { switchFilterToOriginal } from './edit-img.js';
+import { switchEffectToOriginal } from './edit-img.js';
 import { sendPhoto } from './api.js';
 import { showSuccess, showError } from './delivery-reports.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const imgUploadForm = document.querySelector('#upload-select-image');
@@ -23,9 +24,21 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const changePreview = () => {
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    imgPreview.src = URL.createObjectURL(file);
+  }
+};
+
 uploadInput.addEventListener('change', () => {
+  changePreview();
   imgPreview.style.transform = 'scale(1)';
-  switchFilterToOriginal();
+  switchEffectToOriginal();
 
   imgUploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -37,6 +50,7 @@ function onCloseOverlay () {
   imgUploadOverlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
 
+  imgPreview.src = 'img/upload-default-image.jpg';
   uploadInput.value = '';
   hashtags.value = '';
   description.value = '';
